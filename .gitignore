@@ -40,3 +40,4 @@ terraform.rc
 .vscode/
 *.swp
 *.swo
+*.code-workspace
