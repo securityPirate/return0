@@ -72,6 +72,7 @@ terraform apply -destroy
 
 ## 🔄 Roadmap
 - [ ] Use draw.io or Miro for a better diagram
+- [ ] Update the github action to auto deploy and destroy
 - [ ] Implement cloud-init for automated tool installation
 - [ ] Enhanced security group configurations
 - [ ] Add automated reporting capabilities
