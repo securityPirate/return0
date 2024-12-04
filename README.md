@@ -16,24 +16,24 @@ AWS Cloud Environment
 |
 └── VPC: MalwareLabVPC (10.0.0.0/16)
     |
-    +------------------------------------------------------------------------------+
-    |                                                                              |
-[Management Subnet (10.0.1.0/24)]                                          [Support Subnet (10.0.2.0/24)]
-    |                                                                              |
-    - Bastion (10.0.1.1, internet access)                                          - Transfer Station  (10.0.2.10, internet access)
-    |                                                                              - SIEM (ELK Stack)  (10.0.2.12)
-    |                                                                              - Analysis Database  (10.0.2.13)
+    +----------------------------------------------------------------+
+    |                                                                |
+[Management Subnet (10.0.1.0/24)]                                    [Support Subnet (10.0.2.0/24)]
+    |                                                                |
+    - Bastion (10.0.1.1, internet access)                             - Transfer Station  (10.0.2.10, internet access)
+    |                                                                 - SIEM (ELK Stack)  (10.0.2.12)
+    |                                                                 - Analysis Database  (10.0.2.13)
     |
     |
-+---------------------------------------------------+----------------------------------------+
-|                                                                                            |
-[Static Analysis Subnet (10.0.3.0/24)]                                     [Dynamic Analysis Subnet (10.0.4.0/24)]
-|                                                                               |
-|- Static Analysis (t3a.medium)                                                 |- FlareVM (light)                       
-  * Ghidra                                                                      |- Security Onion 
-  * IDA                                                                         |- Remnux
-  * Binary Ninja                                                                |- Cuckoo Sandbox || CAPEv2                                                                
-                                                                                |- Fake C2 Server (t3.micro, Spot)
++-----------------------------------+----------------------------------------+
+|                                                                            |
+[Static Analysis Subnet (10.0.3.0/24)]                        [Dynamic Analysis Subnet (10.0.4.0/24)]
+|                                                               |
+|- Static Analysis (t3a.medium)                                 |- FlareVM (light)                       
+  * Ghidra                                                      |- Security Onion 
+  * IDA                                                         |- Remnux
+  * Binary Ninja                                                |- Cuckoo Sandbox || CAPEv2                                                                
+                                                                |- Fake C2 Server (t3.micro, Spot)
 ```
 ### What the heck is that?
 Yeah, I can explain each instance's purpose, but you can figure it out :)
