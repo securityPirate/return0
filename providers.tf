@@ -13,13 +13,13 @@ terraform {
 }
 
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-1" #change me if you want
 }
 
 # Optional: Enable AWS S3 backend for state storage
 terraform {
   backend "s3" {
-    bucket  = "backend-696969"
+    bucket  = "backend-696969" #create this manually 
     key     = "return0_lab.tfstate"
     region  = "us-east-1"
     encrypt = true
