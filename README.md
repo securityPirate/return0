@@ -32,8 +32,8 @@ AWS Cloud Environment
 |- Static Analysis (t3a.medium)                                 |- FlareVM (light)                       
   * Ghidra                                                      |- Security Onion 
   * IDA                                                         |- Remnux
-  * Binary Ninja                                                |- Cuckoo Sandbox || CAPEv2                                                                
-                                                                |- Fake C2 Server (t3.micro, Spot)
+  * Binary Ninja                                                |- Cuckoo Sandbox || CAPEv2
+                                                                |- Fake C2 Server
 ```
 ### What the heck is that?
 Yeah, I can explain each instance's purpose, but you can figure it out :)
