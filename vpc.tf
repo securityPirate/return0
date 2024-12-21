@@ -1,4 +1,6 @@
-# vpc.tf
+# We should only access the managment through the bastion.
+# The bastion can access other subnets through the ssh tunnel.
+# We might need to configure proxychains to access some tools deployed in the other subnets.
 
 resource "aws_vpc" "Return0_lab_vpc" {
   cidr_block           = var.vpc_cidr
