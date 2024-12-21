@@ -15,6 +15,9 @@ resource "aws_vpc_security_group_ingress_rule" "management_ssh" {
   from_port         = 22
   to_port           = 22
   ip_protocol       = "tcp"
+  tags = {
+    Name = "ManagementSG"
+  }
 }
 
 # Static Analysis Security Group
@@ -31,6 +34,18 @@ resource "aws_vpc_security_group_ingress_rule" "static_analysis_ingress" {
   description       = "Allow access from mangement subnet"
   cidr_ipv4         = aws_subnet.management_subnet.cidr_block
   ip_protocol       = -1
+  tags = {
+    Name = "StaticAnalysisSG"
+  }
+}
+resource "aws_vpc_security_group_ingress_rule" "static_from_support_ingress" {
+  security_group_id = aws_security_group.static_analysis_sg.id
+  description       = "Allow access from support subnet"
+  cidr_ipv4         = aws_subnet.support_subnet.cidr_block
+  ip_protocol       = -1
+  tags = {
+    Name = "StaticAnalysisSG"
+  }
 }
 
 # Dynamic Analysis Security Group
@@ -42,11 +57,23 @@ resource "aws_security_group" "dynamic_analysis_sg" {
     Name = "DynamicAnalysisSG"
   }
 }
-resource "aws_vpc_security_group_ingress_rule" "dynamic_analysis_ingress" {
+resource "aws_vpc_security_group_ingress_rule" "dynamic_from_management_ingress" {
   security_group_id = aws_security_group.dynamic_analysis_sg.id
   description       = "Allow access from mangement subnet"
   cidr_ipv4         = aws_subnet.management_subnet.cidr_block
   ip_protocol       = -1
+  tags = {
+    Name = "DynamicAnalysisSG"
+  }
+}
+resource "aws_vpc_security_group_ingress_rule" "dynamic_from_support_ingress" {
+  security_group_id = aws_security_group.dynamic_analysis_sg.id
+  description       = "Allow access from support subnet"
+  cidr_ipv4         = aws_subnet.support_subnet.cidr_block
+  ip_protocol       = -1
+  tags = {
+    Name = "DynamicAnalysisSG"
+  }
 }
 
 
@@ -64,21 +91,30 @@ resource "aws_vpc_security_group_ingress_rule" "support_ingress" {
   description       = "Allow access from mangement subnet"
   cidr_ipv4         = aws_subnet.management_subnet.cidr_block
   ip_protocol       = -1
+  tags = {
+    Name = "SupportSG"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "support_from_static" {
-  security_group_id            = aws_security_group.support_sg.id
-  referenced_security_group_id = aws_security_group.static_analysis_sg.id
-  ip_protocol                  = "-1"
-  from_port                    = 0
-  to_port                      = 0
+  security_group_id = aws_security_group.support_sg.id
+  cidr_ipv4         = aws_subnet.static_analysis_subnet.cidr_block
+  ip_protocol       = "tcp"
+  from_port         = 8443
+  to_port           = 8443
+  tags = {
+    Name = "SupportSG"
+  }
 }
 
 resource "aws_vpc_security_group_ingress_rule" "support_from_dynamic" {
-  security_group_id            = aws_security_group.support_sg.id
-  referenced_security_group_id = aws_security_group.dynamic_analysis_sg.id
-  ip_protocol                  = "-1"
-  from_port                    = 0
-  to_port                      = 0
+  security_group_id = aws_security_group.support_sg.id
+  cidr_ipv4         = aws_subnet.dynamic_analysis_subnet.cidr_block
+  ip_protocol       = "tcp"
+  from_port         = 8443
+  to_port           = 8443
+  tags = {
+    Name = "SupportSG"
+  }
 }
 

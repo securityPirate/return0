@@ -2,7 +2,7 @@
 
 # Bastion Host in Management Subnet
 resource "aws_instance" "bastion_host" {
-  count = var.exclude_ec2_instance ? 0 : 1
+  count                       = var.exclude_ec2_instance ? 0 : 1
   ami                         = var.instance_ami["awsami2_arm64"]
   instance_type               = "t4g.nano"
   subnet_id                   = aws_subnet.management_subnet.id
@@ -25,7 +25,7 @@ resource "aws_instance" "bastion_host" {
 
 # Static Analysis EC2 Instance
 resource "aws_instance" "static_analysis_instance" {
-  count = var.exclude_ec2_instance ? 0 : 1
+  count                       = var.exclude_ec2_instance ? 0 : 1
   ami                         = var.instance_ami["windows_x86_64"]
   instance_type               = "t3a.medium"
   subnet_id                   = aws_subnet.static_analysis_subnet.id
@@ -52,7 +52,7 @@ resource "aws_instance" "static_analysis_instance" {
 
 # Dynamic Analysis EC2 Instance
 resource "aws_instance" "dynamic_analysis_instance" {
-  count = var.exclude_ec2_instance ? 0 : 1
+  count                       = var.exclude_ec2_instance ? 0 : 1
   ami                         = var.instance_ami["windows_x86_64"]
   instance_type               = "t3a.medium"
   subnet_id                   = aws_subnet.dynamic_analysis_subnet.id
@@ -80,7 +80,7 @@ resource "aws_instance" "dynamic_analysis_instance" {
 # Support Instances (Transfer Station, Logging Server, etc.)
 
 resource "aws_instance" "transfer_station_instance" {
-  count = var.exclude_ec2_instance ? 0 : 1
+  count                       = var.exclude_ec2_instance ? 0 : 1
   ami                         = var.instance_ami["awsami2_arm64"]
   instance_type               = "t4g.nano"
   subnet_id                   = aws_subnet.support_subnet.id
@@ -102,7 +102,7 @@ resource "aws_instance" "transfer_station_instance" {
 }
 
 resource "aws_instance" "logging_server_instance" {
-  count = var.exclude_ec2_instance ? 0 : 1
+  count                       = var.exclude_ec2_instance ? 0 : 1
   ami                         = var.instance_ami["ubuntu_2404_arm64"]
   instance_type               = "t4g.small"
   subnet_id                   = aws_subnet.support_subnet.id
