@@ -17,14 +17,6 @@ resource "aws_vpc_security_group_ingress_rule" "management_ssh" {
   ip_protocol       = "tcp"
 }
 
-resource "aws_vpc_security_group_egress_rule" "management_egress" {
-  security_group_id = aws_security_group.management_sg.id
-  cidr_ipv4         = "10.0.0.0/16"
-  ip_protocol       = "-1" # All protocols
-  from_port         = 0
-  to_port           = 0
-}
-
 # Static Analysis Security Group
 resource "aws_security_group" "static_analysis_sg" {
   name        = "static_analysis_sg"
@@ -34,13 +26,11 @@ resource "aws_security_group" "static_analysis_sg" {
     Name = "StaticAnalysisSG"
   }
 }
-
-resource "aws_vpc_security_group_egress_rule" "static_analysis_egress" {
+resource "aws_vpc_security_group_ingress_rule" "static_analysis_ingress" {
   security_group_id = aws_security_group.static_analysis_sg.id
-  cidr_ipv4         = "10.0.2.0/24"
-  ip_protocol       = "-1"
-  from_port         = 0
-  to_port           = 0
+  description       = "Allow access from mangement subnet"
+  cidr_ipv4         = aws_subnet.management_subnet.cidr_block
+  ip_protocol       = -1
 }
 
 # Dynamic Analysis Security Group
@@ -52,14 +42,13 @@ resource "aws_security_group" "dynamic_analysis_sg" {
     Name = "DynamicAnalysisSG"
   }
 }
-
-resource "aws_vpc_security_group_egress_rule" "dynamic_analysis_egress" {
+resource "aws_vpc_security_group_ingress_rule" "dynamic_analysis_ingress" {
   security_group_id = aws_security_group.dynamic_analysis_sg.id
-  cidr_ipv4         = "10.0.2.0/24"
-  ip_protocol       = "-1"
-  from_port         = 0
-  to_port           = 0
+  description       = "Allow access from mangement subnet"
+  cidr_ipv4         = aws_subnet.management_subnet.cidr_block
+  ip_protocol       = -1
 }
+
 
 # Support Security Group
 resource "aws_security_group" "support_sg" {
@@ -69,6 +58,12 @@ resource "aws_security_group" "support_sg" {
   tags = {
     Name = "SupportSG"
   }
+}
+resource "aws_vpc_security_group_ingress_rule" "support_ingress" {
+  security_group_id = aws_security_group.support_sg.id
+  description       = "Allow access from mangement subnet"
+  cidr_ipv4         = aws_subnet.management_subnet.cidr_block
+  ip_protocol       = -1
 }
 
 resource "aws_vpc_security_group_ingress_rule" "support_from_static" {
@@ -87,10 +82,3 @@ resource "aws_vpc_security_group_ingress_rule" "support_from_dynamic" {
   to_port                      = 0
 }
 
-resource "aws_vpc_security_group_egress_rule" "support_egress" {
-  security_group_id = aws_security_group.support_sg.id
-  cidr_ipv4         = "10.0.0.0/16"
-  ip_protocol       = "-1"
-  from_port         = 0
-  to_port           = 0
-}
