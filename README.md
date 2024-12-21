@@ -40,7 +40,11 @@ terraform init
 terraform plan
 terraform apply
 ```
-
+Create the infra without the EC2
+```
+terraform plan -out=tfplan -var='exclude_ec2_instance=true'
+terraform apply
+```
 ### Cleanup
 
 ```

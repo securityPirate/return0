@@ -31,3 +31,8 @@ variable "instance_ami" {
     "ubuntu_2404_arm64"  = "ami-0325498274077fac5" # Ubuntu Server 24.04 ARM_64
   }
 }
+
+variable "exclude_ec2_instance" {
+  description = "Exclude EC2 instances from deployment"
+  default     = true
+}
