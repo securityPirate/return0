@@ -57,8 +57,8 @@ terraform apply -destroy
 - [ ] Explain how to spin specific resources instead of provisiong the whole lab 
 - [ ] Update the github action to auto deploy and destroy
 - [ ] Implement cloud-init for automated tool installation
-- [ ] Enhanced security group configurations
 - [ ] Add automated reporting capabilities
+- ~~[ Enhanced security group configurations ]~~ 
 
 ## 📞 Support
 Create an issue :) 
